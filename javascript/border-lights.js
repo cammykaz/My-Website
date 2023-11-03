@@ -1,4 +1,4 @@
-let sketch = function (p) {
+let borderLights = function (p) {
 
     let canvas;
 
@@ -80,4 +80,4 @@ let sketch = function (p) {
         p.noLoop();
     }
 }
-let borderLights = new p5(sketch);
+let p5instance1 = new p5(borderLights);

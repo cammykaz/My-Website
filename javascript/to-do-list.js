@@ -1,98 +1,76 @@
-//Questions//
-// What is instance mode? What is actually happening in JavaScript-speak?
-//  - It's problematic to declare everything (including setup, draw) in the "global", window object, context
-//  https://developer.mozilla.org/en-US/docs/Web/API/Window
-//  - The solution is to create your sketch as an instance of the p5() object.
-//  - Namespaces your sketch under a particular variable
-//  - Essentially creates individual instances of the p5 library
-//  - p5.js instance mode was created before JavaScript ES6
-//  - Basically you define a function that is your sketch...
-//  - ...and make it an argument for the p5() object instance
-//Do I definitely need instance mode?
-//  - If you have two sketches, each with their own setup() and draw() functions...
-//  - ...and you want to execute them on the same HTML page...
-//  - ...then YES, you would need to use instance mode in p5.js to prevent conflicts between the sketches
-//  - Another option is to match each p5.js sketch with its own HTML file...
-//  - ...and then embed all those HTML files onto an HTML webpage via iframe
-//  - ...however the sketches become isolated from eachother
-//  - ...and it is much more difficult to share information between sketches.
-// What is on-demand global mode?
-//   - When you call new p5() without any arguments.
-//   - Helpful to control how p5 is loaded on page with other libraries
+let toDoList = function (p) { //template to make versions of sketch
 
-How should I define the function?...
-...declaration, expression, arrow
-  - function declaration
-        let myp5 = new p5(sketch, 'canvas-id');
-        function sketch(p) {
-            [P5 SKETCH]
-        }
-   - function expression
-        let sketch = function(p) {
-            [P5 SKETCH]
-        }
-        let myp5 = new p5(sketch);
-   - arrow syntax
-        //https://github.com/processing/p5.js/wiki/p5.js-overview#instantiation--namespace
-        const s = ( p ) => {
-            [P5 SKETCH]
-        }
-        let myp5 = new p5(s);
+    p.hx = 630;
+    p.hy = 80;
+    
+    p.setup = function () {
 
-How should I instantiate the object?
-        //https://p5js.org/examples/instance-mode-instantiation.html
-        let sketch = function(p) {
-            [P5 SKETCH]
-        }
-        let myp5 = new p5(sketch);
+//        p.canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        p.canvas = p.createCanvas(300,360);
+        p.canvas.position(550, 100);
+        p.canvas.style('z-index', '-1');
+        
+        p.frameRate(10);
+        
+        p.h2 = p.createElement('h2', 'My To-Dos');
+        //p.h2.position(630, 80);
+        
+        p.background(240);
+    }
+    
+//    p.windowResized = function () {
+//        p.resizeCanvas(p.windowWidth, p.windowHeight);
+//    }
 
-        //https://github.com/processing/p5.js/issues/392
-        //https://gist.github.com/lmccart/253c4df01ff09ea5ddb4
-        var s1 = function(p) {
-            [P5 SKETCH]
-        }
-        new p5(s1);
+    p.draw = function () {
+//        p.fill(p.random(110,270),p.random(100,200),p.random(150,210));
+//        p.ellipse (200,200,200,200);
+        
+//        p.x = p.windowWidth - 300;
+        p.x = 0;
+        p.y = 0;
+        p.ts = 14;
+        p.lineheight = p.ts * 2.5;
+        p.pw = p.width*.75; //paper width
+        p.ph = p.height*.75; //paper height
+        p.b0 = '• c̶r̶e̶a̶t̶e̶ ̶s̶e̶c̶o̶n̶d̶ ̶s̶k̶e̶t̶c̶h̶, ̶u̶s̶i̶n̶g̶ ̶i̶n̶s̶t̶a̶n̶c̶e̶ ̶m̶o̶d̶e̶';
+        
+        //Oscillate to-do list H2 title
+        p.h2.position(p.hx,p.hy);
+        p.hx = p.hx + p.random(-1,1);
+        
+        //Check that loop is working
+        console.log(p.random(-5,5));
+            
+        //Displace below to-do list to center of canvas
+        p.translate((p.width-p.pw)/2,(p.height-p.ph)/2);
+        
+        //Paper
+        p.stroke(100);
+        p.strokeWeight(2);
+        p.fill(238, 238, 228);
+        p.rectMode(p.CORNER);
+        p.rect(p.x, p.y, p.pw, p.ph);
 
-Anonymous instance mode?
-        //https://github.com/processing/p5.js/wiki/Global-and-instance-mode
-        let myp5 = new p5(( p ) => { // Anonymous Instance
-            [P5 SKETCH]
-        });
+        //Text
+        p.push();
+        p.translate(6,7);
+            //p5 text function
+            p.textSize(p.ts);
+            p.strokeWeight(0);
+            p.fill(0);
 
-        // chatGPT
-        let mySketch = new p5(function(p) { // Anonymous Instance
-            [P5 SKETCH]
-        });
-
-How should I declare variables? (var, let, const)
-        //https://www.youtube.com/watch?v=Su792jEauZg
-        var sketch = function (p) {
-            [P5 SKETCH]
-        }
-        var myp5 = new p5(sketch);
-
-
-Naming conventions?     
-        ChatGPT
-        Both the object instance and the sketch function...
-        ...need to be unique for each sketch you create.
-            let p5instance0 = new p5(first_sketch);
-            let p5instance1 = new p5(second_sketch);
-
-        var borderlights = function (p) { //template to make versions of sketch
-            [P5 SKETCH]
-        }
-        var p5instance0 = new p5(borderlights); //decide to make the sketches
-
-
-        var todolist = function (p) { //template to make versions of sketch
-            [P5 SKETCH]
-        }
-        var p5instance1 = new p5(todolist); //decide to make the sketches
-
-
-
-
-
-//More Instance Mode Links
-https://forum.processing.org/two/discussion/13348/drawing-functions-in-instance-mode.html
+            //list
+            p.text(p.b0, p.x, p.y, p.pw, p.ph);
+            p.text('• c̶r̶e̶a̶t̶e̶ ̶t̶o̶-̶d̶o̶ ̶l̶i̶s̶t̶', p.x, p.y + (p.lineheight*1.4), p.pw, p.ph);
+            p.text('• make personalized font', p.x, p.y + (p.lineheight * 2.4), p.pw, p.ph);
+            //to-do's
+            p.text('• layout items in css grid', p.x, p.y + (p.lineheight * 3.4), p.pw, p.ph);
+            p.text('• make piano (hello-p5-song)', p.x, p.y + (p.lineheight * 4.4), p.pw, p.ph);
+            p.text('• add playable filters (like koala)', p.x, p.y + (p.lineheight * 5.4), p.pw, p.ph);
+        p.pop();
+        
+        //p.noloop();
+    }
+}
+let p5instance2 = new p5(toDoList); //decide to make the sketches
