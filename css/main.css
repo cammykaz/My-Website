@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'handwriting';
+    src: url(../fonts/camron-handwriting-uni-ball-signo207-x167-regular.otf) format('opentype'),
+         url(../fonts/camron-handwriting-uni-ball-signo207-x167-regular.ttf) format('truetype');
+} 
+
+body {
+    font-size: 100%;
+    font-family: 'handwriting', sans-serif;
+    font-size: 1em;
+}
+
 #setlist {
     margin: auto;
     width: 50%;
