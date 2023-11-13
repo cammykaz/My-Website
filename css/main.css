@@ -14,3 +14,36 @@ body {
     margin: auto;
     width: 50%;
 }
+
+/* GRID Container */
+main {
+    display: grid;
+    height: 100%;
+    grid-template-areas:
+        "thetop     thetop      thetop"
+        "leftside   stuff     rightside"
+        "dabottom   dabottom    dabottom";
+
+    grid-template-rows: 100px auto 100px;
+    
+    grid-template-columns: [line1col] 2fr [line2col] 4fr [line3col] 3fr [colend];
+    
+    align-items: center;
+    justify-items: left;
+}
+
+/* GRID Items */
+header {
+    grid-area: thetop;}
+
+aside {
+    grid-area: leftside;}
+
+article {
+    grid-area: stuff;}
+
+nav {
+    grid-area: rightside;}
+
+footer {
+    grid-area: dabottom;}
