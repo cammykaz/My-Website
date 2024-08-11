@@ -4,15 +4,37 @@
          url(../fonts/camron-handwriting-uni-ball-signo207-x167-regular.ttf) format('truetype');
 } 
 
+h1 {
+    margin: 0.5em 1.5em;
+    text-align: left;
+}
+
+
+
+h2 {
+    margin: 0.5em 0em;
+    text-align: center;
+}
+
+
+
+
 body {
     font-size: 100%;
     font-family: 'handwriting', sans-serif;
     font-size: 1em;
 }
 
+#heading {
+    margin: auto;
+    width: 100%;
+    padding: 3em;
+}
+
 #setlist {
     margin: auto;
     width: 50%;
+    padding: 1em;
 }
 
 /* GRID Container */
@@ -24,7 +46,7 @@ main {
         "leftside   stuff     rightside"
         "dabottom   dabottom    dabottom";
 
-    grid-template-rows: 100px auto 100px;
+    grid-template-rows: 15px auto 100px;
     
     grid-template-columns: [line1col] 2fr [line2col] 4fr [line3col] 3fr [colend];
     
@@ -47,3 +69,4 @@ nav {
 
 footer {
     grid-area: dabottom;}
+
