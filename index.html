@@ -1,125 +1,259 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <!--Title-->
-    <title>Camron Kazerounian - From Me to You</title>
-
-    <!--Meta Description-->
-    <meta name=”description” content=”Sun-dappled indie rock from Camron Kazerounian.”>
-
-    <!--Meta Content Type-->
+    <title>Cam Kazerounian - From Me to You</title>
+    <meta name="description" content="Sun-dappled indie rock from Camron Kazerounian.">
     <meta charset="UTF-8">
-
-    <!--Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--Link to External Resources-->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome for social icons (stable release) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.4/css/all.min.css">
 
-    
+    <!-- Song rental (standalone, no module deps) -->
+    <script src="javascript/song-rental.js" defer></script>
 
-    <!--Internal CSS (for just this page)-->
-    <style>
-        h1 {
-            margin: 1.35em 1.5em;
-            text-align: left;
-        }
-
-        h2 {
-            margin: 1.35em 0em;
-            text-align: center;
-        }
-    </style>
-
-    <!--Javascript-->
-    <script src="libraries/p5.js"></script>
-    <script src="libraries/p5.sound.js"></script>
-    <script src="javascript/border-lights.js"></script>
-    <script src="javascript/to-do-list.js"></script>
-
+    <!--
+        Main app — ES module entry point.
+        Imports the modules/ folder; the Supabase CDN is imported
+        inside modules/supabase-client.js, so no extra <script> needed.
+        type="module" is deferred by default and runs after song-rental.js.
+    -->
+    <script type="module" src="javascript/app.js"></script>
 </head>
 
 <body>
     <main>
-        <header>
-        </header>
-        <aside>
-        </aside>
+        <header></header>
+        <aside></aside>
+
         <article>
-            <div id="heading">
-            <h1>Camron Kazerounian</h1>
-                <p>Whatsup! I'm Cam. I'm an indie-rock singer-songwriter, with a bunch of songs and the goal to start playing live, get the songs tight, and then record.</p>
-                <p>Looking for some energetic and talented musicians to bring these to life! Drummer, bass player, synth/guitar, and horns.</p>
-                <p>If you like the music and want to play, holla! <camronkazerounian@gmail.com> (925) 719-4166</camronkazerounian></p>
-            </div>
-                <div id=setlist>
+
+            <!-- ===================== HERO ===================== -->
+            <section id="hero">
+                <!--
+                    Optional photo: drop your image in images/ and uncomment this line.
+                    <img src="images/cam.jpg" alt="Camron Kazerounian" class="hero-photo">
+                -->
+                <h1>Cam Kazerounian</h1>
+                <p class="tagline">Sun-dappled indie rock.</p>
+                <p>I'm Cam — singer-songwriter with a bunch of songs and the goal to get the live set tight and record. Looking for energetic musicians to bring these to life: drummer, bass, synth/guitar, horns.</p>
+                <div class="contact-note">
+                    <strong>Want to play?</strong><br>
+                    <a href="mailto:camronkazerounian@gmail.com">camronkazerounian@gmail.com</a><br>
+                    (925) 719-4166
+                </div>
+            </section>
+
+            <!-- ===================== DEMOS ===================== -->
+            <section id="demos">
                 <h2>Demos</h2>
-                <p>Version Update 4.3</p>
-                <audio controls>
-                    <source src="songs/Version Update 4.13 - 29AUG2022.mp3">
-                </audio>
-                <p>Satellite</p>
-                <audio controls>
-                    <source src="songs/Satellite - 4DEC2024.mp3">
-                </audio>
-                <p>Can't Touch the Bottom</p>
-                <audio controls>
-                    <source src="songs/Can't Touch the Bottom - 10JUL2024.mp3">
-                </audio>
-                <p>The Weeds</p>
-                <audio controls>
-                    <source src="songs/The Weeds - 25OCT2022.mp3">
-                </audio>
-                <p>The Witch's Camera</p>
-                <audio controls>
-                    <source src="songs/The Witch's Camera - 10JUL2024.mp3">
-                </audio>
-                <p>Prom Song</p>
-                <audio controls>
-                    <source src="songs/Prom Song - 7JUN2018.mp3">
-                </audio>
-                <p>Bad Lover</p>
-                <audio controls>
-                    <source src="songs/Bad Lover - 10AUG2024.mp3">
-                </audio>
-                <p>Angels</p>
-                <audio controls>
-                    <source src="songs/Angels - 10JUL2024.mp3">
-                </audio>
-                <p>FIFA</p>
-                <audio controls>
-                    <source src="songs/fifa-17JUN2022.mp3">
-                </audio>
-            </div>
-            <div class="email-signup-container"></div>
-                <form action="https://github.us11.list-manage.com/subscribe/post?u=ad042c434a6b0f191244fd089&amp;id=c37a7ede1a" method="post" target="_blank" novalidate>
-                    <label for="mce-EMAIL">Want to stay connected? Sign up to my email list:</label>
-                    <input type="email" name="EMAIL" id="mce-EMAIL" required>
-                    <!-- Anti-Spam Hidden Field -->
-                    <div style="position: absolute; left: -5000px;">
-                        <input type="text" name="b_ad042c434a6b0f191244fd089_c37a7ede1a" tabindex="-1" value="">
+                <div class="song-grid">
+
+                    <div class="song-card">
+                        <span class="song-title">Satellite</span>
+                        <span class="song-date">DEC 2024</span>
+                        <audio controls>
+                            <source src="songs/Satellite - 4DEC2024.mp3">
+                        </audio>
                     </div>
-                    <button type="submit">Subscribe</button>
-                </form>
-             </div>  
+
+                    <div class="song-card">
+                        <span class="song-title">Can't Touch the Bottom</span>
+                        <span class="song-date">JUL 2024</span>
+                        <audio controls>
+                            <source src="songs/Can't Touch the Bottom - 10JUL2024.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">Bad Lover</span>
+                        <span class="song-date">AUG 2024</span>
+                        <audio controls>
+                            <source src="songs/Bad Lover - 10AUG2024.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">Angels</span>
+                        <span class="song-date">JUL 2024</span>
+                        <audio controls>
+                            <source src="songs/Angels - 10JUL2024.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">The Witch's Camera</span>
+                        <span class="song-date">JUL 2024</span>
+                        <audio controls>
+                            <source src="songs/The Witch's Camera - 10JUL2024.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">The Weeds</span>
+                        <span class="song-date">OCT 2022</span>
+                        <audio controls>
+                            <source src="songs/The Weeds - 25OCT2022.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">Version Update 4.3</span>
+                        <span class="song-date">AUG 2022</span>
+                        <audio controls>
+                            <source src="songs/Version Update 4.13 - 29AUG2022.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">Prom Song</span>
+                        <span class="song-date">JUN 2018</span>
+                        <audio controls>
+                            <source src="songs/Prom Song - 7JUN2018.mp3">
+                        </audio>
+                    </div>
+
+                    <div class="song-card">
+                        <span class="song-title">FIFA</span>
+                        <span class="song-date">JUN 2022</span>
+                        <audio controls>
+                            <source src="songs/fifa-17JUN2022.mp3">
+                        </audio>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===================== IMPROV VIDEOS ===================== -->
+            <section id="improv-videos">
+                <h2>Improvised Songs</h2>
+                <p>Spontaneous, one-take songs straight from the camera roll.</p>
+                <div class="video-grid">
+
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube-nocookie.com/embed/ubZqB8AFpGE"
+                                title="Poster on Your Wall"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <p class="video-title">Poster on Your Wall</p>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube-nocookie.com/embed/9KAYWCEMECs"
+                                title="Flicking Her Eyes Back and Forth"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <p class="video-title">Flicking Her Eyes Back and Forth</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===================== SONG RENTAL LIBRARY ===================== -->
+            <section id="song-rental">
+                <h2>Song Rental Library</h2>
+                <div class="rental-card">
+                    <p class="rental-subtitle">Check out one song at a time. It's yours until you return it.</p>
+
+                    <!-- Shows the current rental status -->
+                    <p id="rental-display">Nothing checked out. Pick one!</p>
+
+                    <!-- Shown when no song is rented -->
+                    <select id="rental-song-select">
+                        <option value="">— pick a song —</option>
+                        <option value="Satellite">Satellite</option>
+                        <option value="Can't Touch the Bottom">Can't Touch the Bottom</option>
+                        <option value="Bad Lover">Bad Lover</option>
+                        <option value="Angels">Angels</option>
+                        <option value="The Witch's Camera">The Witch's Camera</option>
+                        <option value="The Weeds">The Weeds</option>
+                        <option value="Version Update 4.3">Version Update 4.3</option>
+                        <option value="Prom Song">Prom Song</option>
+                        <option value="FIFA">FIFA</option>
+                    </select>
+                    <button id="rent-btn">Check It Out</button>
+
+                    <!-- Shown when a song is rented -->
+                    <button id="return-btn" style="display:none;">Return It</button>
+                </div>
+            </section>
+
+            <!-- ===================== NEWSLETTER ===================== -->
+            <section id="newsletter">
+                <div class="newsletter-card">
+                    <form action="https://github.us11.list-manage.com/subscribe/post?u=ad042c434a6b0f191244fd089&amp;id=c37a7ede1a"
+                          method="post" target="_blank" novalidate>
+                        <label for="mce-EMAIL">Stay connected — join the email list:</label>
+                        <div class="newsletter-row">
+                            <input type="email" name="EMAIL" id="mce-EMAIL"
+                                   placeholder="your@email.com" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <!-- Mailchimp anti-spam field — do not remove -->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="b_ad042c434a6b0f191244fd089_c37a7ede1a" tabindex="-1" value="">
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===================== BEAT PLAYGROUND TEASER ===================== -->
+            <section id="beat-teaser">
+                <div class="teaser-card">
+                    <span class="teaser-label">coming soon</span>
+                    <h3>Beat Designer</h3>
+                    <p>A playable beat playground. Under construction.</p>
+                </div>
+            </section>
+
         </article>
+
+        <!-- RIGHT SIDEBAR: to-do list -->
         <nav>
             <div id="to-do-list">
+                <div class="todo-note">
+
+                    <!--
+                        Thumbtack image — overlaps the top edge of the paper.
+                        Clicking it wiggles and resets the list to Cam's defaults.
+                        The title attribute shows as a browser tooltip on hover.
+                    -->
+                    <img id="todo-thumbtack"
+                         src="images/thumbtack.png"
+                         alt="Reset to Cam's official list"
+                         title="click pin to reset"
+                         class="todo-thumbtack">
+
+                    <h3 class="todo-heading">To-Dos</h3>
+
+                    <!-- Items are rendered here by javascript/todo-list.js -->
+                    <ul id="todo-items"></ul>
+
+                    <p class="todo-hint">
+                        Edit your copy —<br>saves only in your browser.<br>
+                        <small>&#8593; click pin to reset</small>
+                    </p>
+
+                </div>
             </div>
         </nav>
+
         <footer>
-            <!-- Social Media Icons for YouTube, X, and Twitch -->
             <div class="social-icons">
                 <a href="https://www.youtube.com/@camronkazerounian" target="_blank" aria-label="YouTube">
-                <i class="fab fa-youtube"></i>
+                    <i class="fab fa-youtube"></i>
                 </a>
                 <a href="https://x.com/Camron_Kaz" target="_blank" aria-label="X (Twitter)">
-                <i class="fab fa-twitter"></i> <!-- X icon in Font Awesome -->
+                    <i class="fab fa-twitter"></i>
                 </a>
                 <a href="https://www.twitch.tv/camsoss" target="_blank" aria-label="Twitch">
-                <i class="fab fa-twitch"></i>
+                    <i class="fab fa-twitch"></i>
                 </a>
             </div>
         </footer>

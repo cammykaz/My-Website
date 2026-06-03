@@ -1,118 +1,730 @@
+/* === FONT === */
 @font-face {
     font-family: 'handwriting';
     src: url(../fonts/camron-handwriting-uni-ball-signo207-x167-regular.otf) format('opentype'),
          url(../fonts/camron-handwriting-uni-ball-signo207-x167-regular.ttf) format('truetype');
-} 
+}
+
+/* === COLOR PALETTE === */
+:root {
+    --bg:       #faf6f0;   /* warm cream paper */
+    --ink:      #1a1a1a;
+    --card:     #ffffff;
+    --coral:    #e85d3d;
+    --sky:      #4a9fd5;
+    --yellow:   #f5c842;
+    --sage:     #6aaa6a;
+    --lavender: #9b7fd4;
+    --border:   2px solid var(--ink);
+    --shadow:   3px 3px 0 rgba(0, 0, 0, 0.18);
+}
+
+/* === BASE === */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'handwriting', sans-serif;
+    font-size: 1rem;
+    background-color: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    margin: 0;
+}
 
 h1 {
-    margin: 0.5em 1.5em;
-    text-align: left;
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin: 0 0 0.3em 0;
 }
-
-
 
 h2 {
-    margin: 0.5em 0em;
-    text-align: center;
+    font-size: 1.8rem;
+    margin: 0 0 0.75em 0;
+    border-bottom: var(--border);
+    padding-bottom: 0.2em;
 }
 
-#to-do-list {
-    display: none;
+h3 {
+    font-size: 1.3rem;
+    margin: 0 0 0.4em 0;
 }
 
-
-/* Body styling for full height and spacing */
-body {
-    font-size: 100%;
-    font-family: 'handwriting', sans-serif;
-    font-size: 1em;
-    min-height: 100vh; /* Full height for the body */
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+p {
+    margin: 0 0 0.6em 0;
+    line-height: 1.5;
 }
 
-#heading {
-    margin: auto;
-    width: 100%;
-    padding: 3em;
+a {
+    color: var(--ink);
 }
 
-#setlist {
-    margin: auto;
-    width: 50%;
-    padding: 1em;
-}
-
-/* Grid Container */
+/* === LAYOUT: CSS GRID === */
 main {
     display: grid;
-    height: 100vh; /* Full height of the viewport */
+    min-height: 100vh;
     grid-template-areas:
-        "thetop     thetop      thetop"
-        "leftside   stuff     rightside"
-        "dabottom   dabottom    dabottom";
-
-    grid-template-rows: auto 1fr auto; /* Adjust to give room for content and footer */
-    grid-template-columns: 2fr 4fr 3fr; /* Adjust grid column ratios */
+        "thetop     thetop          thetop"
+        "leftside   stuff           rightside"
+        "dabottom   dabottom        dabottom";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 4fr minmax(290px, 2fr);
+    /* Positioning context for the absolutely-placed todo note */
+    position: relative;
 }
 
-/* GRID Items */
-header {
-    grid-area: thetop;}
-
-aside {
-    grid-area: leftside;}
+header { grid-area: thetop; }
+aside  { grid-area: leftside; }
 
 article {
     grid-area: stuff;
-    padding: 1em;}
+    padding: 2em 2.5em 5em;
+}
 
 nav {
-    grid-area: rightside;}
+    grid-area: rightside;
+    padding: 1.5em 0.5em 2.5em 0; /* left padding removed to pull card toward article */
+}
 
-
-/* Footer Styles - Center the Icons */
 footer {
     grid-area: dabottom;
     display: flex;
-    justify-content: center; /* Center the social icons */
+    justify-content: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 1.5em 0;
+    border-top: var(--border);
 }
 
-
-/* Center the email sign-up form and add space around it */
-.email-signup-container {
-    display: flex;             /* Use flexbox */
-    justify-content: center;   /* Center the form horizontally */
-    margin: 20px auto;         /* Add space around the form and center it */
-    width: 100%;               /* Full width of the container */
-    max-width: 600px;          /* Limit the width of the form */
+/* === SECTIONS === */
+section {
+    margin-bottom: 3.5em;
 }
 
-form {
-    width: 100%;               /* Ensure the form takes the full width of its container */
+/* === HERO === */
+#hero {
+    padding: 1.5em 1.8em;
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 3em;
 }
 
+.tagline {
+    font-size: 1.35rem;
+    color: var(--coral);
+    margin: 0.1em 0 0.8em;
+}
 
+/* Uncomment in HTML to use: floats right of bio text */
+.hero-photo {
+    float: right;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin: 0 0 1em 1.5em;
+    transform: rotate(1.5deg);
+}
 
-/* Social Icons Styling */
+.contact-note {
+    display: inline-block;
+    margin-top: 1em;
+    padding: 0.7em 1.1em;
+    background: var(--yellow);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    transform: rotate(-1deg);
+    line-height: 1.9;
+}
+
+.contact-note a {
+    text-decoration: underline;
+    color: var(--ink);
+}
+
+/* === SONG CARDS === */
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1em;
+}
+
+.song-card {
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 0.8em 1em 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+}
+
+/* Slight tilts for the handmade/pinned feel */
+.song-card:nth-child(3n+1) { transform: rotate(-0.6deg); }
+.song-card:nth-child(3n+2) { transform: rotate(0.4deg); }
+.song-card:nth-child(3n)   { transform: rotate(-0.3deg); }
+
+.song-title {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+.song-date {
+    font-size: 0.78rem;
+    background: var(--sky);
+    color: white;
+    border: 1px solid var(--ink);
+    padding: 0.1em 0.5em;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.song-card audio {
+    width: 100%;
+    margin-top: 0.3em;
+}
+
+/* === IMPROV VIDEOS === */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5em;
+}
+
+.video-card {
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 0.8em;
+}
+
+.video-card:nth-child(odd)  { transform: rotate(-0.4deg); }
+.video-card:nth-child(even) { transform: rotate(0.5deg); }
+
+/* Responsive 16:9 iframe wrapper */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+.video-title {
+    margin: 0.6em 0 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* === SONG RENTAL LIBRARY === */
+.rental-card {
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.2em 1.5em;
+    max-width: 500px;
+    transform: rotate(-0.3deg);
+}
+
+.rental-subtitle {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 1em;
+}
+
+#rental-display {
+    font-size: 1.05rem;
+    padding: 0.5em 0.7em;
+    background: var(--yellow);
+    border: 1px dashed var(--ink);
+    margin: 0 0 1em;
+    min-height: 2.2em;
+}
+
+#rental-song-select {
+    font-family: 'handwriting', sans-serif;
+    font-size: 1rem;
+    padding: 0.4em;
+    border: var(--border);
+    background: var(--bg);
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+#rent-btn,
+#return-btn {
+    font-family: 'handwriting', sans-serif;
+    font-size: 1rem;
+    padding: 0.4em 1em;
+    border: var(--border);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+#rent-btn   { background: var(--coral);  color: white; }
+#return-btn { background: var(--sage);   color: white; }
+
+#rent-btn:hover,
+#return-btn:hover { opacity: 0.85; }
+
+/* === NEWSLETTER === */
+.newsletter-card {
+    background: var(--lavender);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.2em 1.5em;
+    max-width: 480px;
+    transform: rotate(0.4deg);
+}
+
+.newsletter-card label {
+    display: block;
+    margin-bottom: 0.7em;
+    font-size: 1rem;
+}
+
+.newsletter-row {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.newsletter-card input[type="email"] {
+    font-family: 'handwriting', sans-serif;
+    font-size: 1rem;
+    padding: 0.4em 0.6em;
+    border: var(--border);
+    flex: 1;
+    min-width: 160px;
+    background: var(--bg);
+}
+
+.newsletter-card button[type="submit"] {
+    font-family: 'handwriting', sans-serif;
+    font-size: 1rem;
+    padding: 0.4em 1em;
+    background: var(--ink);
+    color: var(--bg);
+    border: var(--border);
+    cursor: pointer;
+}
+
+.newsletter-card button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+/* === BEAT PLAYGROUND TEASER === */
+.teaser-card {
+    position: relative;
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.5em 1.5em 1.2em;
+    max-width: 300px;
+    transform: rotate(-1deg);
+    opacity: 0.82;
+}
+
+.teaser-label {
+    position: absolute;
+    top: -0.75em;
+    right: 1em;
+    background: var(--coral);
+    color: white;
+    font-size: 0.72rem;
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--ink);
+    transform: rotate(2deg);
+    display: inline-block;
+}
+
+.teaser-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* === TO-DO LIST (right sidebar) === */
+
+/* Tack clearance only; margin-top removed — note is absolutely positioned now */
+#to-do-list {
+    padding-top: 18px;
+}
+
+.todo-note {
+    /*
+     * Positioned absolutely within <main> (the workspace canvas).
+     * JS sets left/top as percentages of main's dimensions so the note
+     * stays in roughly the same visual area across different screen sizes.
+     * CSS fallback values match the JS DEFAULT_NOTE_POS constants.
+     *
+     * On mobile (max-width: 767px) this switches to position: static
+     * so the note stacks naturally in page flow — see the media query below.
+     */
+    position: absolute;
+    left: 65%;
+    top: 40%;
+    width: clamp(360px, 28vw, 460px);
+    /* Legal-pad yellow; red margin line baked into the background */
+    background-color: #fff9e6;
+    background-image: linear-gradient(
+        to right,
+        transparent 2em,
+        rgba(210, 55, 55, 0.35) 2em,
+        rgba(210, 55, 55, 0.35) calc(2em + 2px),
+        transparent calc(2em + 2px)
+    );
+    border: var(--border);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.22);
+    /* Extra padding-top so the heading clears the lowered thumbtack */
+    padding: 3em 1.2em 1.4em 2.8em;
+    transform: rotate(-1.8deg);
+}
+
+/* Thumbtack image — sits lower on the paper so it looks embedded.
+   translateX(-35%) instead of (-50%) shifts the image rightward so the
+   silver pin tip (which sits left of the image's center) lands at center. */
+.todo-thumbtack {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-35%);
+    width: 46px;
+    height: auto;
+    cursor: pointer;
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.38));
+    z-index: 2;
+    transition: filter 0.12s;
+}
+
+.todo-thumbtack:hover {
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.5)) brightness(1.06);
+}
+
+/* Wiggle + press animation — plays when the thumbtack is clicked */
+@keyframes tack-wiggle {
+    0%   { transform: translateX(-35%) rotate(0deg)   scale(1);    }
+    15%  { transform: translateX(-35%) rotate(-18deg) scale(0.86); }
+    35%  { transform: translateX(-35%) rotate(12deg)  scale(0.93); }
+    55%  { transform: translateX(-35%) rotate(-7deg)  scale(0.96); }
+    75%  { transform: translateX(-35%) rotate(4deg)   scale(0.99); }
+    100% { transform: translateX(-35%) rotate(0deg)   scale(1);    }
+}
+
+.todo-thumbtack.tack-wiggle {
+    animation: tack-wiggle 0.45s ease;
+}
+
+.todo-heading {
+    font-size: 1.15rem;
+    margin: 0 0 0.5em;   /* padding-top on .todo-note handles tack clearance */
+    padding-bottom: 0.3em;
+    border-bottom: var(--border);
+}
+
+.todo-note ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Each item: checkbox + editable text, sitting on a blue ruled line */
+.todo-note li {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.4em 0;
+    border-bottom: 1px solid #a8cfe0;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+/* Hand-drawn checkbox — minimal square, no browser default */
+.todo-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    width: 0.85em;
+    height: 0.85em;
+    border: 1.5px solid #999;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    top: -0.05em; /* tiny optical alignment with the text */
+}
+
+.todo-checkbox:checked {
+    background: #aaa;
+    border-color: #aaa;
+}
+
+/* Small checkmark inside the filled box */
+.todo-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -0.2em;
+    left: 0.04em;
+    font-size: 0.72em;
+    color: #fff9e6;
+    line-height: 1;
+}
+
+/* Editable text — click to edit in-place */
+.todo-text {
+    flex: 1;
+    min-width: 0;       /* prevents the flex item from overflowing */
+    outline: none;
+    cursor: text;
+    position: relative; /* needed for the strikethrough ::after */
+    border-radius: 2px;
+}
+
+.todo-text:focus {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Done items: grey text, strikethrough drawn on the text only */
+.todo-note li.done .todo-text {
+    color: #aaa;
+}
+
+.todo-note li.done .todo-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: #aaa;
+    pointer-events: none;
+}
+
+/* Small italic hint below the list */
+.todo-hint {
+    font-size: 0.68rem;
+    color: #aaa;
+    margin: 0.8em 0 0;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.todo-hint small {
+    font-size: 0.95em;
+    color: #bbb;
+}
+
+/* === FOOTER SOCIAL ICONS === */
 .social-icons {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1.5em;
 }
 
 .social-icons a {
     text-decoration: none;
-    color: #333;
-    font-size: 24px;
-    margin: 0 10px; /* Adds space between icons */
-    transition: color 0.3s ease;
+    color: var(--ink);
+    font-size: 1.5rem;
+    transition: color 0.2s;
 }
 
 .social-icons a:hover {
-    color: #0073e6;
+    color: var(--coral);
 }
-      
+
+
+/* =====================================================================
+   LAYOUT EDIT MODE  (body.edit-mode — only present when URL has #edit)
+   Normal visitors never see any of these styles take effect.
+   ===================================================================== */
+
+/* Dashed outline on draggable items so you can see what's movable */
+body.edit-mode .todo-note {
+    outline: 1.5px dashed rgba(255, 160, 0, 0.55);
+    outline-offset: 5px;
+}
+
+/* Drag handle glyph — injected into each draggable element by layout-edit.js */
+.edit-drag-handle {
+    position: absolute;
+    bottom: 0.45em;
+    right: 0.45em;
+    font-size: 1.15rem;
+    font-family: sans-serif; /* ensures the braille dot glyph renders correctly */
+    color: #bbb;
+    cursor: grab;
+    user-select: none;
+    line-height: 1;
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    transition: color 0.12s, background 0.12s;
+}
+
+.edit-drag-handle:hover {
+    color: #555;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+/* Elevated shadow and grabbing cursor while a drag is in progress */
+.is-dragging {
+    box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.25) !important;
+    z-index: 100;
+}
+
+/* Fixed toolbar — dark pill, bottom-right of the viewport */
+#edit-toolbar {
+    position: fixed;
+    bottom: 1.2em;
+    right: 1.2em;
+    background: rgba(16, 16, 16, 0.92);
+    color: #ddd;
+    padding: 0.55em 1em;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: monospace;
+    font-size: 0.78rem;
+    z-index: 9999;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Yellow label signals "you're in a special mode" */
+.edit-toolbar-label {
+    color: var(--yellow);
+    font-weight: bold;
+    margin-right: 0.15em;
+}
+
+#edit-toolbar button {
+    font-family: monospace;
+    font-size: 0.76rem;
+    padding: 0.3em 0.65em;
+    background: transparent;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+
+#edit-toolbar button:hover {
+    background: #2a2a2a;
+    border-color: #888;
+    color: #fff;
+}
+
+/* "Save official version" — stands out from the other toolbar buttons */
+.edit-admin-btn {
+    background: rgba(245, 200, 66, 0.15) !important;
+    border-color: var(--yellow) !important;
+    color: var(--yellow) !important;
+}
+
+.edit-admin-btn:hover {
+    background: rgba(245, 200, 66, 0.28) !important;
+}
+
+/* Admin login panel — sits above the edit toolbar */
+#admin-login-panel {
+    position: fixed;
+    bottom: calc(1.2em + 2.8em + 0.5em); /* clears the toolbar height */
+    right: 1.2em;
+    background: rgba(16, 16, 16, 0.92);
+    color: #ddd;
+    padding: 0.6em 1em;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    z-index: 9999;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.admin-login-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+#admin-email-input,
+#admin-password-input {
+    font-family: monospace;
+    font-size: 0.76rem;
+    padding: 0.28em 0.5em;
+    background: #1e1e1e;
+    color: #eee;
+    border: 1px solid #444;
+    border-radius: 3px;
+    width: 130px;
+}
+
+#admin-login-btn {
+    font-family: monospace;
+    font-size: 0.76rem;
+    padding: 0.28em 0.65em;
+    background: transparent;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s;
+}
+
+#admin-login-btn:hover {
+    background: #2a2a2a;
+    border-color: #888;
+    color: #fff;
+}
+
+#admin-login-status {
+    margin-top: 0.3em;
+    color: var(--coral);
+    font-size: 0.72rem;
+    min-height: 1em;
+}
+
+/* Placeholder "..." shown while Supabase fetch is in flight */
+.todo-loading {
+    color: #ccc;
+    font-style: italic;
+    font-size: 0.82rem;
+    list-style: none;
+    padding: 0.5em 0;
+    border-bottom: none;
+}
+
+
+/* =====================================================================
+   MOBILE — disable free absolute positioning for the todo note.
+   The saved desktop xPercent/yPercent are ignored; the note stacks
+   naturally in page flow within the nav/rightside grid column.
+   ===================================================================== */
+@media (max-width: 767px) {
+    .todo-note {
+        position: static;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 420px;
+        transform: rotate(-1.8deg);
+        margin: 1em auto;
+    }
+
+    #to-do-list {
+        padding-top: 0;
+    }
+}
