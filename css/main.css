@@ -103,17 +103,67 @@ section {
 
 /* === HERO === */
 #hero {
-    padding: 1.5em 1.8em;
-    background: var(--card);
-    border: var(--border);
-    box-shadow: var(--shadow);
     margin-bottom: 3em;
+}
+
+.hero-header {
+    margin-bottom: 1.5em;
+    padding-bottom: 0.8em;
+    border-bottom: var(--border);
+}
+
+#hero h1 {
+    font-size: 3.4rem;
+    line-height: 1.05;
+    margin: 0 0 0.2em 0;
 }
 
 .tagline {
     font-size: 1.35rem;
     color: var(--coral);
-    margin: 0.1em 0 0.8em;
+    margin: 0;
+}
+
+.hero-body {
+    display: flex;
+    gap: 1.2em;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 1.2em;
+}
+
+.hero-bio {
+    flex: 2;
+    min-width: 220px;
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.1em 1.4em;
+    transform: rotate(-0.4deg);
+}
+
+.hero-bio p:last-child {
+    margin-bottom: 0;
+}
+
+.hero-photo-card {
+    flex: 1;
+    min-width: 160px;
+    max-width: 230px;
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 0.5em 0.5em 1.8em;
+    transform: rotate(2deg);
+    align-self: flex-start;
+}
+
+.hero-photo-card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 3 / 4;
+    background: var(--bg);
 }
 
 /* Uncomment in HTML to use: floats right of bio text */
@@ -130,7 +180,7 @@ section {
 
 .contact-note {
     display: inline-block;
-    margin-top: 1em;
+    margin-top: 0.5em;
     padding: 0.7em 1.1em;
     background: var(--yellow);
     border: var(--border);
