@@ -42,12 +42,16 @@ import { initEditMode }
 import { initPocketPiano }
   from './modules/pocket-piano.js';
 
+import { initPasswordRecovery }
+  from './modules/password-recovery.js';
+
 
 document.addEventListener('DOMContentLoaded', async function () {
 
   // ---------------------------------------------------------------
   // SETUP
   // ---------------------------------------------------------------
+  initPasswordRecovery(); // must run unconditionally — recovery links don't have #edit
   initPocketPiano();
   setupThumbtack();
   setupUndoKeyboard();

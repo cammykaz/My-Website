@@ -747,6 +747,61 @@ body.edit-mode .todo-note {
     min-height: 1em;
 }
 
+/* === PASSWORD RESET PANEL === */
+/* Shown only when arriving via a Supabase password-recovery email link. */
+#password-reset-panel {
+    position: fixed;
+    bottom: 1.2em;
+    right: 1.2em;
+    background: rgba(16, 16, 16, 0.92);
+    color: #ddd;
+    padding: 0.6em 1em;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    z-index: 9999;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+#pw-reset-new,
+#pw-reset-confirm {
+    font-family: monospace;
+    font-size: 0.76rem;
+    padding: 0.28em 0.5em;
+    background: #1e1e1e;
+    color: #eee;
+    border: 1px solid #444;
+    border-radius: 3px;
+    width: 130px;
+}
+
+#pw-reset-btn {
+    font-family: monospace;
+    font-size: 0.76rem;
+    padding: 0.28em 0.65em;
+    background: transparent;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+
+#pw-reset-btn:hover {
+    background: #2a2a2a;
+    border-color: #888;
+    color: #fff;
+}
+
+#pw-reset-status {
+    margin-top: 0.3em;
+    color: var(--coral);
+    font-size: 0.72rem;
+    min-height: 1em;
+}
+
 /* Placeholder "..." shown while Supabase fetch is in flight */
 .todo-loading {
     color: #ccc;
@@ -773,7 +828,7 @@ body.edit-mode .todo-note {
 
 /* Handwritten sticker label — replaces the formal section heading */
 .piano-card::before {
-    content: 'pocket synth';
+    content: 'pocket piano';
     position: absolute;
     top: -0.88em;
     left: 1.3em;
