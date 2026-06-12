@@ -39,12 +39,16 @@ import { checkAdminSession, buildAdminControls, buildLoginPanel }
 import { initEditMode }
   from './modules/edit-mode.js';
 
+import { initPocketPiano }
+  from './modules/pocket-piano.js';
+
 
 document.addEventListener('DOMContentLoaded', async function () {
 
   // ---------------------------------------------------------------
   // SETUP
   // ---------------------------------------------------------------
+  initPocketPiano();
   setupThumbtack();
   setupUndoKeyboard();
 

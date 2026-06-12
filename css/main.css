@@ -758,6 +758,121 @@ body.edit-mode .todo-note {
 }
 
 
+/* === POCKET PIANO === */
+
+/* Card — rough paper patch, sticker label peeks above the top edge */
+.piano-card {
+    position: relative;
+    background: #fffcf4;
+    border: var(--border);
+    box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.18);
+    padding: 1.3em 1.4em 1.8em;
+    max-width: 570px;
+    transform: rotate(-1.1deg);
+}
+
+/* Handwritten sticker label — replaces the formal section heading */
+.piano-card::before {
+    content: 'pocket synth';
+    position: absolute;
+    top: -0.88em;
+    left: 1.3em;
+    font-family: 'handwriting', sans-serif;
+    font-size: 0.76rem;
+    font-style: italic;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 0.15em 0.85em;
+    border: 1px solid var(--ink);
+    transform: rotate(-1.6deg);
+    display: inline-block;
+    line-height: 1.7;
+}
+
+.piano-tagline {
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.45;
+    margin: 0 0 1em;
+    display: block;
+}
+
+.piano-kbd-hint {
+    font-style: normal;
+    opacity: 0.8;
+}
+
+/* Keys row — bottom-aligned so different heights feel like they rest on a surface */
+.piano-keys {
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    overflow-x: clip;   /* clips horizontal overflow without locking overflow-y */
+    padding: 4px 5px 5px; /* top padding gives animated keys room to bounce upward */
+}
+
+/* ---- Base key style ---- */
+.piano-key {
+    --rot: 0deg;
+    flex: 1 1 0;
+    min-width: 40px;
+    font-family: 'handwriting', sans-serif;
+    color: white;
+    border: var(--border);
+    box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.22);
+    padding: 0.5em 0.15em 0.65em;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transform: rotate(var(--rot));
+    transition: box-shadow 0.08s;
+}
+
+.piano-key:hover {
+    box-shadow: 3px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Per-key: color · tilt · height · corner shape ---- */
+.piano-key:nth-child(1) { --rot: -1.8deg; background: var(--coral);    min-height: 88px; border-radius:  5px  9px 10px  4px; }
+.piano-key:nth-child(2) { --rot:  1.4deg; background: var(--sky);      min-height: 82px; border-radius:  9px  5px  7px 11px; }
+.piano-key:nth-child(3) { --rot: -0.9deg; background: var(--yellow);   min-height: 90px; border-radius:  6px 11px  5px  8px; color: var(--ink); }
+.piano-key:nth-child(4) { --rot:  2.3deg; background: var(--sage);     min-height: 84px; border-radius: 11px  5px  9px  5px; }
+.piano-key:nth-child(5) { --rot: -0.6deg; background: var(--lavender); min-height: 86px; border-radius:  5px  7px 11px  8px; }
+.piano-key:nth-child(6) { --rot:  1.1deg; background: #e0883a;         min-height: 92px; border-radius:  8px 11px  5px  7px; }
+.piano-key:nth-child(7) { --rot: -2.4deg; background: #c9506b;         min-height: 80px; border-radius:  7px  5px  9px 11px; }
+.piano-key:nth-child(8) { --rot:  0.6deg; background: var(--coral);    min-height: 85px; border-radius: 11px  9px  5px  6px; }
+
+.piano-key-name {
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.piano-key-shortcut {
+    font-size: 0.62rem;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+/* ---- Boing animation on press ---- */
+/* var(--rot) resolves per-element, so each key bounces from its own tilt */
+@keyframes key-boing {
+    0%   { transform: rotate(var(--rot)) scale(1);    filter: brightness(1); }
+    20%  { transform: rotate(var(--rot)) scale(0.85); filter: brightness(0.74); }
+    58%  { transform: rotate(var(--rot)) scale(1.10); filter: brightness(1.16); }
+    100% { transform: rotate(var(--rot)) scale(1);    filter: brightness(1); }
+}
+
+.piano-key--pressed {
+    animation: key-boing 0.27s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
 /* =====================================================================
    MOBILE — disable free absolute positioning for the todo note.
    The saved desktop xPercent/yPercent are ignored; the note stacks
